@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clazefy - Nevin Shera Adji Semester 5 Informatika </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="./assets/logo1.png">
+        <!-- LINK KE CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <div class="logo"><img src="assets/logo.png" alt="" height="100"></div>
+            <button class="btn btn-outline-light btn-sm" onclick="showSettings()">
+                <i class="bi bi-gear"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container page-content">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="page-section active ">
+
+        <!-- Mini Slideshow -->
+<div id="miniSlide" class="carousel slide mt-3" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img src="assets/bg1.png" class="mini-slide-img" alt="slide1">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="assets/bg2.png" class="mini-slide-img" alt="slide2">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="assets/bg3.png" class="mini-slide-img" alt="slide3">
+        </div>
+    </div>
+</div>
+            <!-- Health Score Card -->
+            <div class="health-card" id="healthCard">
+                
+                <div class="text-center">
+                    <h5>Status Keuangan</h5>
+                    <div class="health-score" id="healthScore">85</div>
+                    <h4 id="healthStatus">Sangat Baik!</h4>
+                    <p id="healthMessage">Keuanganmu dalam kondisi sehat</p>
+                </div>
+            </div>
+
+<div class="mini-video-wrapper mt-3">
+    <video autoplay muted loop class="mini-video">
+        <source src="assets/video.mp4" type="video/mp4">
+    </video>
+</div>
+
+
+            <!-- Quick Stats -->
+            <div class="row g-3 mt-3">
+                <div class="col-6">
+                    <div class="card stat-card">
+                        <div class="text-center">
+                            <i class="bi bi-wallet2 stat-icon text-primary"></i>
+                            <p class="stat-value text-primary" id="totalBalance">Rp 0</p>
+                            <p class="stat-label">Saldo Total</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card stat-card">
+                        <div class="text-center">
+                            <i class="bi bi-arrow-down-circle stat-icon text-danger"></i>
+                            <p class="stat-value text-danger" id="monthExpense">Rp 0</p>
+                            <p class="stat-label">Pengeluaran Bulan Ini</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card stat-card">
+                        <div class="text-center">
+                            <i class="bi bi-arrow-up-circle stat-icon text-success"></i>
+                            <p class="stat-value text-success" id="monthIncome">Rp 0</p>
+                            <p class="stat-label">Pemasukan Bulan Ini</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card stat-card">
+                        <div class="text-center">
+                            <i class="bi bi-piggy-bank stat-icon" style="color: var(--accent-color);"></i>
+                            <p class="stat-value" style="color: var(--accent-color);" id="totalSavings">Rp 0</p>
+                            <p class="stat-label">Total Tabungan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Transaksi Terbaru</h5>
+                    <div id="recentTransactions">
+                        <p class="text-center text-muted">Belum ada transaksi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div id="transactions" class="page-section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">Semua Transaksi</h5>
+                        <div class="swipe-indicator">
+                            <i class="bi bi-arrow-left-right"></i> Geser untuk ubah bulan
+                        </div>
+                    </div>
+                    <div class="text-center mb-3">
+                        <h6 id="currentMonth">November 2025</h6>
+                    </div>
+                    <div id="allTransactions"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="page-section">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pengeluaran per Kategori</h5>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Tren Saldo</h5>
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Analisis Kebiasaan Belanja</h5>
+                    <div id="habitAnalysis"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">💭 Bayangkan Jika...</h5>
+                    <p class="text-muted">Lihat dampak kebiasaan belanjamu</p>
+                    <div id="whatIfAnalysis"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Savings Section -->
+        <div id="savings" class="page-section">
+            <button class="btn btn-primary w-100 mb-3" onclick="showAddGoalModal()">
+                <i class="bi bi-plus-circle"></i> Tambah Tujuan Tabungan
+            </button>
+
+            <div id="savingsGoals"></div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">🎯 Tantangan Tabungan</h5>
+                    <div id="challenges"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget Section -->
+        <div id="budget" class="page-section">
+            <button class="btn btn-primary w-100 mb-3" onclick="showAddBudgetModal()">
+                <i class="bi bi-plus-circle"></i> Atur Anggaran Kategori
+            </button>
+            <div id="budgetList"></div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Perbandingan Anonim</h5>
+                    <p class="text-muted">Bandingkan pengeluaranmu dengan mahasiswa lain</p>
+                    <div id="comparison"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Add Button -->
+    <button class="btn-quick-add" onclick="showAddTransactionModal()">
+        <i class="bi bi-plus"></i>
+    </button>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a class="nav-item-bottom active" onclick="showPage('dashboard')">
+            <i class="bi bi-house-door"></i>
+            <span>Beranda</span>
+        </a>
+        <a class="nav-item-bottom" onclick="showPage('transactions')">
+            <i class="bi bi-list-ul"></i>
+            <span>Transaksi</span>
+        </a>
+        <a class="nav-item-bottom" onclick="showPage('analytics')">
+            <i class="bi bi-graph-up"></i>
+            <span>Analisis</span>
+        </a>
+        <a class="nav-item-bottom" onclick="showPage('savings')">
+            <i class="bi bi-piggy-bank"></i>
+            <span>Tabungan</span>
+        </a>
+        <a class="nav-item-bottom" onclick="showPage('budget')">
+            <i class="bi bi-calculator"></i>
+            <span>Anggaran</span>
+        </a>
+    </div>
+
+    <!-- Add Transaction Modal -->
+    <div class="modal fade" id="addTransactionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Transaksi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="transactionForm">
+                        <div class="mb-3">
+                            <label class="form-label">Tipe</label>
+                            <select class="form-select" id="transactionType" required>
+                                <option value="expense">Pengeluaran</option>
+                                <option value="income">Pemasukan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah (Rp)</label>
+                            <input type="number" class="form-control" id="transactionAmount" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select" id="transactionCategory" required>
+                                <option value="Makanan">🍔 Makanan</option>
+                                <option value="Transport">🚗 Transport</option>
+                                <option value="Belanja">🛒 Belanja</option>
+                                <option value="Hiburan">🎮 Hiburan</option>
+                                <option value="Pendidikan">📚 Pendidikan</option>
+                                <option value="Kesehatan">💊 Kesehatan</option>
+                                <option value="Lainnya">📦 Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" id="transactionDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Catatan (Opsional)</label>
+                            <input type="text" class="form-control" id="transactionNote">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div class="modal fade" id="addGoalModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Tujuan Tabungan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="goalForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Tujuan</label>
+                            <input type="text" class="form-control" id="goalName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Target (Rp)</label>
+                            <input type="number" class="form-control" id="goalTarget" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Target Tanggal</label>
+                            <input type="date" class="form-control" id="goalDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Buat Tujuan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Budget Modal -->
+    <div class="modal fade" id="addBudgetModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atur Anggaran</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="budgetForm">
+                        <div class="mb-3">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select" id="budgetCategory" required>
+                                <option value="Makanan">🍔 Makanan</option>
+                                <option value="Transport">🚗 Transport</option>
+                                <option value="Belanja">🛒 Belanja</option>
+                                <option value="Hiburan">🎮 Hiburan</option>
+                                <option value="Pendidikan">📚 Pendidikan</option>
+                                <option value="Kesehatan">💊 Kesehatan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Limit Bulanan (Rp)</label>
+                            <input type="number" class="form-control" id="budgetAmount" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Simpan Anggaran</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
